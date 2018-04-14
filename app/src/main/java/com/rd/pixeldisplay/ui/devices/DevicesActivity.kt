@@ -27,9 +27,9 @@ class DevicesActivity : BluetoothStateActivity() {
 
     private fun initViews() {
         val txtEnableBluetooth = findViewById<TextView>(R.id.btnEnableBluetooth)
-        txtEnableBluetooth.setOnClickListener { } //TODO handle click action
+        txtEnableBluetooth.setOnClickListener { BluetoothManager().enable() }
 
-        if (!BluetoothManager().isBlueoothAvailable()) {
+        if (!BluetoothManager().isBluetoothAvailable()) {
             displayEnableBluetooth()
         }
     }

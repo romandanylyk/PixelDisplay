@@ -10,15 +10,11 @@ class BluetoothManager {
         adapter = BluetoothAdapter.getDefaultAdapter()
     }
 
-    public fun isBlueoothAvailable(): Boolean {
-        return isBluetoothSupported() && isBluetoothEnabled()
-    }
-
-    public fun isBluetoothSupported(): Boolean {
-        return adapter != null
-    }
-
-    public fun isBluetoothEnabled(): Boolean {
+    fun isBluetoothAvailable(): Boolean {
         return adapter?.isEnabled!!
+    }
+
+    fun enable() {
+        if (!adapter?.isEnabled!!) adapter?.enable()
     }
 }
