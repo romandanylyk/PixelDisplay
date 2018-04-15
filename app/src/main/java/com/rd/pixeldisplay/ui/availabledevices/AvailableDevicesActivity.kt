@@ -1,17 +1,19 @@
-package com.rd.pixeldisplay.ui.devices
+package com.rd.pixeldisplay.ui.availabledevices
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.widget.TextView
 import com.rd.pixeldisplay.R
 import com.rd.pixeldisplay.bluetooth.BluetoothManager
 import com.rd.pixeldisplay.bluetooth.BluetoothStateActivity
+import com.rd.pixeldisplay.ui.addnewdevice.AddNewDeviceActivity
 
-class DevicesActivity : BluetoothStateActivity() {
+class AvailableDevicesActivity : BluetoothStateActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.ac_devices)
+        setContentView(R.layout.ac_available_devices)
         initViews()
     }
 
@@ -26,8 +28,8 @@ class DevicesActivity : BluetoothStateActivity() {
     }
 
     private fun initViews() {
-        val txtEnableBluetooth = findViewById<TextView>(R.id.btnEnableBluetooth)
-        txtEnableBluetooth.setOnClickListener { BluetoothManager().enable() }
+        findViewById<TextView>(R.id.btnEnableBluetooth).setOnClickListener { BluetoothManager().enable() }
+        findViewById<FloatingActionButton>(R.id.fabNewDevice).setOnClickListener { AddNewDeviceActivity().start(this) }
 
         if (!BluetoothManager().isBluetoothAvailable()) {
             displayEnableBluetooth()

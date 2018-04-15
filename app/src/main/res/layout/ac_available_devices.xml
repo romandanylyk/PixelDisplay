@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rd.pixeldisplay.ui.devices.DevicesActivity">
+    tools:context="com.rd.pixeldisplay.ui.availabledevices.AvailableDevicesActivity">
 
     <Button
         android:id="@+id/btnEnableBluetooth"
@@ -38,13 +38,14 @@
         tools:visibility="visible" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/fabNewDevice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:clickable="true"
         android:background="@drawable/selector_blue"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />
