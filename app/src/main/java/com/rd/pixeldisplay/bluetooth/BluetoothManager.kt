@@ -2,7 +2,7 @@ package com.rd.pixeldisplay.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 
-class BluetoothManager {
+object BluetoothManager {
 
     private var adapter: BluetoothAdapter? = null
 
@@ -16,5 +16,21 @@ class BluetoothManager {
 
     fun enable() {
         if (!adapter?.isEnabled!!) adapter?.enable()
+    }
+
+    fun startDiscovery() {
+        if (!isDiscovering()) {
+            adapter?.startDiscovery()
+        }
+    }
+
+    fun cancelDiscovery() {
+        if (isDiscovering()) {
+            adapter?.cancelDiscovery()
+        }
+    }
+
+    private fun isDiscovering(): Boolean {
+        return adapter?.isDiscovering!!
     }
 }

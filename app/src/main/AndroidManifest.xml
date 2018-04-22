@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".ui.addnewdevice.AddNewDeviceActivity"
+            android:name=".ui.adddevice.AddDeviceActivity"
             android:theme="@style/Base"
             android:label="@string/add_new_device"/>
 

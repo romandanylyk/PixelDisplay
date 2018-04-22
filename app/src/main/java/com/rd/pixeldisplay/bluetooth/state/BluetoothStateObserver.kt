@@ -1,4 +1,4 @@
-package com.rd.pixeldisplay.bluetooth
+package com.rd.pixeldisplay.bluetooth.state
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -12,11 +12,11 @@ import android.support.v7.app.AppCompatActivity
 
 class BluetoothStateManager {
 
-    fun observ(activity: AppCompatActivity, listener: BluetoothStateListener?) {
+    fun observ(activity: AppCompatActivity, listener: Listener?) {
         activity.lifecycle.addObserver(BluetoothStateObserver(activity, listener))
     }
 
-    interface BluetoothStateListener {
+    interface Listener {
         fun onBluetoothOff()
 
         fun onBluetoothTurningOff()
@@ -28,7 +28,7 @@ class BluetoothStateManager {
         fun onBluetoothError()
     }
 
-    class BluetoothStateObserver(private val activity: AppCompatActivity, listener: BluetoothStateListener?) : LifecycleObserver {
+    class BluetoothStateObserver(private val activity: AppCompatActivity, listener: Listener?) : LifecycleObserver {
 
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         private fun registerStateReceiver() {

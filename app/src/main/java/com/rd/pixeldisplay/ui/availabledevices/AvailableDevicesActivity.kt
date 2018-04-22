@@ -1,13 +1,12 @@
 package com.rd.pixeldisplay.ui.availabledevices
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.view.View
-import android.widget.TextView
 import com.rd.pixeldisplay.R
 import com.rd.pixeldisplay.bluetooth.BluetoothManager
-import com.rd.pixeldisplay.bluetooth.BluetoothStateActivity
-import com.rd.pixeldisplay.ui.addnewdevice.AddNewDeviceActivity
+import com.rd.pixeldisplay.bluetooth.state.BluetoothStateActivity
+import com.rd.pixeldisplay.ui.adddevice.AddDeviceActivity
+import kotlinx.android.synthetic.main.ac_available_devices.*
 
 class AvailableDevicesActivity : BluetoothStateActivity() {
 
@@ -28,21 +27,18 @@ class AvailableDevicesActivity : BluetoothStateActivity() {
     }
 
     private fun initViews() {
-        findViewById<TextView>(R.id.btnEnableBluetooth).setOnClickListener { BluetoothManager().enable() }
-        findViewById<FloatingActionButton>(R.id.fabNewDevice).setOnClickListener { AddNewDeviceActivity().start(this) }
-
-        if (!BluetoothManager().isBluetoothAvailable()) {
-            displayEnableBluetooth()
-        }
+        btnEnableBluetooth.setOnClickListener { BluetoothManager.enable() }
+        fabNewDevice.setOnClickListener { AddDeviceActivity().start(this) }
+        if (!BluetoothManager.isBluetoothAvailable()) displayEnableBluetooth()
     }
 
     private fun displayEnableBluetooth() {
-        findViewById<TextView>(R.id.txtEnableBluetooth).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.btnEnableBluetooth).visibility = View.VISIBLE
+        txtEnableBluetooth.visibility = View.VISIBLE
+        btnEnableBluetooth.visibility = View.VISIBLE
     }
 
     private fun hideEnableBluetooth() {
-        findViewById<TextView>(R.id.txtEnableBluetooth).visibility = View.GONE
-        findViewById<TextView>(R.id.btnEnableBluetooth).visibility = View.GONE
+        txtEnableBluetooth.visibility = View.GONE
+        btnEnableBluetooth.visibility = View.GONE
     }
 }
