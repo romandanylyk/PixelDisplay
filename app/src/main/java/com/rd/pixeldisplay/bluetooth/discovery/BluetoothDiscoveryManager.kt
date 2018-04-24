@@ -19,27 +19,39 @@ object BluetoothDiscoveryManager {
 
     private val DEFAULT_BLUETOOTH_DISCOVERY_DURATION = TimeUnit.SECONDS.toMillis(12)
     private val discoveredDevices = ArrayList<BluetoothDevice>()
+    private var listener: DiscoveryListener? = null
 
-    fun observ(activity: AppCompatActivity, listener: Listener?) {
-        activity.lifecycle.addObserver(BluetoothDiscoveryObserver(activity, listener))
+    fun observ(activity: AppCompatActivity, listener: DiscoveryListener?) {
+        this.listener = listener
+        activity.lifecycle.addObserver(BluetoothDiscoveryObserver(activity))
     }
 
     fun startDiscovery() {
         cancelDiscovery()
         BluetoothManager.startDiscovery()
+
+        listener?.onBluetoothDiscoveryStarted()
         Handler().postDelayed({ cancelDiscovery() }, DEFAULT_BLUETOOTH_DISCOVERY_DURATION)
     }
 
     fun cancelDiscovery() {
-        BluetoothManager.cancelDiscovery()
-        discoveredDevices.clear()
+        if (BluetoothManager.isDiscovering()) {
+            BluetoothManager.cancelDiscovery()
+            discoveredDevices.clear()
+            listener?.onBluetoothDiscoveryEnded()
+        }
     }
 
-    interface Listener {
+    interface DiscoveryListener {
+
+        fun onBluetoothDiscoveryStarted()
+
         fun onBluetoothDeviceFound(device: BluetoothDevice)
+
+        fun onBluetoothDiscoveryEnded()
     }
 
-    class BluetoothDiscoveryObserver(private val activity: AppCompatActivity, private val listener: Listener?) : LifecycleObserver {
+    class BluetoothDiscoveryObserver(private val activity: AppCompatActivity) : LifecycleObserver {
 
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         private fun registerStateReceiver() {

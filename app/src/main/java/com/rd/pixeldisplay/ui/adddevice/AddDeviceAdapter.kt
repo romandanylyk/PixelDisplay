@@ -33,6 +33,11 @@ class AddDeviceAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun clear() {
+        dataList.clear()
+        notifyDataSetChanged()
+    }
+
     class AddDeviceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(device: Device) = with(itemView) {
             txtDevice.text = device.name

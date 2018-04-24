@@ -2,28 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rd.pixeldisplay">
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
-        android:screenOrientation="portrait"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/available_devices"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:theme="@style/Base">
-        <activity android:name=".ui.availabledevices.AvailableDevicesActivity">
+        <activity
+            android:name=".ui.availabledevices.AvailableDevicesActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".ui.adddevice.AddDeviceActivity"
-            android:theme="@style/Base"
-            android:label="@string/add_new_device"/>
+            android:label="@string/add_new_device"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base" />
 
     </application>
 

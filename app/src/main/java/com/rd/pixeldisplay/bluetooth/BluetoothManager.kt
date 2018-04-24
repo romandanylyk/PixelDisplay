@@ -30,7 +30,7 @@ object BluetoothManager {
         }
     }
 
-    private fun isDiscovering(): Boolean {
+    fun isDiscovering(): Boolean {
         return adapter?.isDiscovering!!
     }
 }
