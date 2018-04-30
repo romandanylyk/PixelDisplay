@@ -1,4 +1,4 @@
-package com.rd.pixeldisplay.bluetooth.discovery
+package com.rd.pixeldisplay.bluetooth
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -11,7 +11,6 @@ import android.content.IntentFilter
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import com.rd.pixeldisplay.bluetooth.BluetoothManager
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -22,21 +21,21 @@ object BluetoothDiscoveryManager {
     private var listener: DiscoveryListener? = null
 
     fun observ(activity: AppCompatActivity, listener: DiscoveryListener?) {
-        this.listener = listener
+        BluetoothDiscoveryManager.listener = listener
         activity.lifecycle.addObserver(BluetoothDiscoveryObserver(activity))
     }
 
     fun startDiscovery() {
         cancelDiscovery()
-        BluetoothManager.startDiscovery()
+        BluetoothController.startDiscovery()
 
         listener?.onBluetoothDiscoveryStarted()
         Handler().postDelayed({ cancelDiscovery() }, DEFAULT_BLUETOOTH_DISCOVERY_DURATION)
     }
 
     fun cancelDiscovery() {
-        if (BluetoothManager.isDiscovering()) {
-            BluetoothManager.cancelDiscovery()
+        if (BluetoothController.isDiscovering()) {
+            BluetoothController.cancelDiscovery()
             discoveredDevices.clear()
             listener?.onBluetoothDiscoveryEnded()
         }
@@ -62,6 +61,7 @@ object BluetoothDiscoveryManager {
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         fun unregisterDiscoverReceiver() {
             activity.unregisterReceiver(discoverReceiver)
+            cancelDiscovery()
         }
 
         private val discoverReceiver = object : BroadcastReceiver() {

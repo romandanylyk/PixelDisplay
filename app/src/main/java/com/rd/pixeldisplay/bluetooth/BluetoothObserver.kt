@@ -1,4 +1,4 @@
-package com.rd.pixeldisplay.bluetooth.state
+package com.rd.pixeldisplay.bluetooth
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -10,10 +10,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.support.v7.app.AppCompatActivity
 
-class BluetoothStateManager {
+class BluetoothManager {
 
     fun observ(activity: AppCompatActivity, listener: Listener?) {
-        activity.lifecycle.addObserver(BluetoothStateObserver(activity, listener))
+        activity.lifecycle.addObserver(BluetoothObserver(activity, listener))
     }
 
     interface Listener {
@@ -28,22 +28,22 @@ class BluetoothStateManager {
         fun onBluetoothError()
     }
 
-    class BluetoothStateObserver(private val activity: AppCompatActivity, listener: Listener?) : LifecycleObserver {
+    class BluetoothObserver(private val activity: AppCompatActivity, listener: Listener?) : LifecycleObserver {
 
-        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
         private fun registerStateReceiver() {
             val intentFilter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
             activity.registerReceiver(stateReceiver, intentFilter)
         }
 
-        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
         fun unregisterDiscoverReceiver() {
             activity.unregisterReceiver(stateReceiver)
         }
 
         private val stateReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                val isActionChanged = intent.action == BluetoothAdapter.ACTION_STATE_CHANGED
+               val isActionChanged = intent.action == BluetoothAdapter.ACTION_STATE_CHANGED
 
                 if (isActionChanged) {
                     val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)

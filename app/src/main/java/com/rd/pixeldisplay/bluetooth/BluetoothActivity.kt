@@ -1,11 +1,11 @@
-package com.rd.pixeldisplay.bluetooth.state
+package com.rd.pixeldisplay.bluetooth
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
 @SuppressLint("Registered")
-open class BluetoothStateActivity : AppCompatActivity(), BluetoothStateManager.Listener {
+open class BluetoothActivity : AppCompatActivity(), BluetoothManager.Listener {
 
     override fun onBluetoothOff() {/*empty*/}
 
@@ -19,6 +19,6 @@ open class BluetoothStateActivity : AppCompatActivity(), BluetoothStateManager.L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BluetoothStateManager().observ(this, this)
+        BluetoothManager().observ(this, this)
     }
 }

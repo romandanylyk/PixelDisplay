@@ -2,7 +2,10 @@
     <string name="app_name">PixelDisplay</string>
     <string name="enable_bluetooth_connection_to_see_paired_devices">Enable bluetooth connection to see paired devices</string>
     <string name="enable">Enable</string>
-    <string name="available_devices">Available Devices</string>
     <string name="add_new_device">Add New Device</string>
     <string name="refresh">Refresh</string>
+    <string name="confirm_your_action">Confirm your action</string>
+    <string name="connection_confirmation">You are going to make connection with %s. Are you sure you want to continue?</string>
+    <string name="Continue">Continue</string>
+    <string name="Cancel">Cancel</string>
 </resources>

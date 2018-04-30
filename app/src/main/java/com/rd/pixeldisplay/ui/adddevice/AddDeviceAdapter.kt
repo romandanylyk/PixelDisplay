@@ -10,14 +10,23 @@ import kotlinx.android.synthetic.main.item_add_device.view.*
 
 class AddDeviceAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    interface Listener {
+        fun onDeviceClicked(device: Device)
+    }
+
     private val dataList: MutableList<Device> = ArrayList()
+    private var listener: Listener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = AddDeviceViewHolder(parent.inflate(R.layout.item_add_device))
 
     override fun getItemCount() = dataList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? AddDeviceViewHolder)?.bind(dataList[position])
+        (holder as? AddDeviceViewHolder)?.bind(dataList[position], listener)
+    }
+
+    fun setListener(listener: Listener) {
+        this.listener = listener
     }
 
     fun add(device: Device) {
@@ -39,8 +48,9 @@ class AddDeviceAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class AddDeviceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(device: Device) = with(itemView) {
+        fun bind(device: Device, listener: Listener?) = with(itemView) {
             txtDevice.text = device.name
+            txtDevice.setOnClickListener { listener?.onDeviceClicked(device) }
         }
     }
 }

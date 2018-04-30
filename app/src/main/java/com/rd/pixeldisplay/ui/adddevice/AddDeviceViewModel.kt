@@ -2,6 +2,7 @@ package com.rd.pixeldisplay.ui.adddevice
 
 import android.arch.lifecycle.ViewModel
 import android.bluetooth.BluetoothDevice
+import com.rd.pixeldisplay.bluetooth.BluetoothDiscoveryManager
 import com.rd.pixeldisplay.ui.data.Device
 
 class AddDeviceViewModel : ViewModel() {
@@ -12,5 +13,9 @@ class AddDeviceViewModel : ViewModel() {
                 blutoothDevice.address,
                 blutoothDevice.bondState,
                 blutoothDevice.type)
+    }
+
+    fun pairDevice(device: Device) {
+        BluetoothDiscoveryManager.cancelDiscovery()
     }
 }
